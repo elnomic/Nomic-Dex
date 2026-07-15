@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, LayoutDashboard, TrendingUp, Wallet, Star } from 'lucide-react'
 
 // === SUPABASE ===
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://xxyskjoxfqsnhfyddmhg.supabase.co'
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4eXNram94ZnFzbmhmeWRkbWhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMDUxMjUsImV4cCI6MjA5OTY4MTEyNX0.fp_-LW5Ho1rA2ftzLC8j5ZEBZs8d5eZb78MgJnZP500'
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4eXNram94ZnFzbmhmeWRkbWhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMDUxMjUsImV4cCI6MjA5OTY4MTEyNX0.fp_-LW5Ho1rA2ftzLC8j5ZEBZs8d5eZb78MgJnZP500
+'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // === PAGES ===
@@ -33,9 +34,8 @@ function Home() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      <h1 className="text-xl sm:text-3xl font-bold text-primary">🏠 Dashboard</h1>
+      <h1 className="text-xl sm:text-3xl font-bold text-primary">Dashboard</h1>
       
-      {/* Cards - Mobile responsive */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         <div className="glass-panel p-4 sm:p-6">
           <p className="text-text-secondary text-xs sm:text-sm">Total Equity</p>
@@ -51,7 +51,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Supabase Data */}
       <div className="glass-panel p-4 sm:p-6">
         <h2 className="text-base sm:text-lg font-semibold mb-3">📦 Supabase Users</h2>
         {loading ? (
@@ -149,38 +148,38 @@ function Points() {
 // === MAIN APP ===
 function App() {
   const [page, setPage] = useState('home')
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const menuItems = [
-    { id: 'home', label: 'Dashboard' },
-    { id: 'trade', label: 'Trade' },
-    { id: 'portfolio', label: 'Portfolio' },
-    { id: 'points', label: 'Points' },
+    { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'trade', label: 'Trade', icon: TrendingUp },
+    { id: 'portfolio', label: 'Portfolio', icon: Wallet },
+    { id: 'points', label: 'Points', icon: Star },
   ]
 
   const navigate = (pageId: string) => {
     setPage(pageId)
-    setIsMobileMenuOpen(false)
+    setIsMenuOpen(false)
   }
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* NAVBAR */}
-      <nav className="bg-surface border-b border-white/10 px-3 sm:px-4 py-2 sm:py-3 sticky top-0 z-50">
+      {/* === NAVBAR === */}
+      <nav className="bg-surface border-b border-white/10 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
-          <div onClick={() => navigate('home')} className="flex items-center gap-1 sm:gap-2 cursor-pointer">
-            <span className="text-lg sm:text-xl font-bold text-primary">Nomic</span>
-            <span className="text-[8px] sm:text-xs text-text-secondary bg-primary/10 px-1.5 sm:px-2 py-0.5 rounded">Beta</span>
+          <div onClick={() => navigate('home')} className="flex items-center gap-2 cursor-pointer">
+            <span className="text-xl font-bold text-primary">Nomic</span>
+            <span className="text-[10px] text-text-secondary bg-primary/10 px-2 py-0.5 rounded">Beta</span>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden sm:flex gap-1 sm:gap-2">
+          {/* Desktop Menu - hidden di mobile */}
+          <div className="hidden md:flex gap-2">
             {menuItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => navigate(item.id)}
-                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm transition ${
+                className={`px-4 py-1.5 rounded-lg text-sm transition ${
                   page === item.id
                     ? 'bg-primary/20 text-primary border border-primary/20'
                     : 'text-text-secondary hover:text-white hover:bg-surface-elevated'
@@ -192,48 +191,55 @@ function App() {
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button className="hidden sm:inline-block btn-primary text-xs sm:text-sm py-1 sm:py-1.5 px-3 sm:px-4">
-              Connect
+          <div className="flex items-center gap-3">
+            <button className="hidden md:inline-block btn-primary text-sm py-1.5 px-4">
+              Connect Wallet
             </button>
             
-            {/* Mobile Hamburger */}
+            {/* Mobile Hamburger - hanya di mobile */}
             <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="sm:hidden text-text-primary p-1"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-text-primary p-1 hover:bg-surface-elevated rounded-lg transition"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="sm:hidden mt-2 pt-2 border-t border-white/5">
-            <div className="grid grid-cols-4 gap-1">
-              {menuItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => navigate(item.id)}
-                  className={`py-2 text-xs rounded-lg transition ${
-                    page === item.id
-                      ? 'bg-primary/20 text-primary border border-primary/20'
-                      : 'text-text-secondary hover:text-white bg-surface-elevated/50'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+        {/* === MOBILE MENU (Slide Down) === */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-3 pt-3 border-t border-white/10">
+            {/* Menu Items */}
+            <div className="space-y-1">
+              {menuItems.map((item) => {
+                const Icon = item.icon
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => navigate(item.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition ${
+                      page === item.id
+                        ? 'bg-primary/20 text-primary border border-primary/20'
+                        : 'text-text-secondary hover:text-white hover:bg-surface-elevated'
+                    }`}
+                  >
+                    <Icon className="w-5 h-5" />
+                    {item.label}
+                  </button>
+                )
+              })}
             </div>
-            <button className="w-full mt-2 btn-primary text-sm py-2">
-              Connect Wallet
+            
+            {/* Connect Wallet Button di Mobile */}
+            <button className="w-full mt-3 btn-primary text-sm py-3">
+              🔗 Connect Wallet
             </button>
           </div>
         )}
       </nav>
 
-      {/* CONTENT */}
-      <main className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
+      {/* === CONTENT === */}
+      <main className="max-w-7xl mx-auto p-4 sm:p-6">
         {page === 'home' && <Home />}
         {page === 'trade' && <Trade />}
         {page === 'portfolio' && <Portfolio />}
