@@ -12,7 +12,6 @@ function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Test fetch dari Supabase
     async function fetchUsers() {
       try {
         const { data, error } = await supabase
@@ -35,7 +34,6 @@ function Home() {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-primary">🏠 Dashboard</h1>
       
-      {/* Cards */}
       <div className="grid grid-cols-3 gap-4">
         <div className="glass-panel p-6">
           <p className="text-text-secondary">Total Equity</p>
@@ -51,7 +49,6 @@ function Home() {
         </div>
       </div>
 
-      {/* Supabase Data */}
       <div className="glass-panel p-6">
         <h2 className="text-lg font-semibold mb-3">📦 Supabase Users</h2>
         {loading ? (
