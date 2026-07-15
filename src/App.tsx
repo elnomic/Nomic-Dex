@@ -71,7 +71,6 @@ function Home() {
 }
 
 function Trade() {
-function Trade() {
   const [selectedPair, setSelectedPair] = useState('BTC')
   const [leverage, setLeverage] = useState(10)
   const [amount, setAmount] = useState('')
@@ -85,7 +84,6 @@ function Trade() {
 
   const selected = pairs.find(p => p.symbol === selectedPair)
 
-  // Order Book Data
   const asks = [
     { price: '67,250', size: '0.45', total: '0.45' },
     { price: '67,245', size: '1.20', total: '1.65' },
@@ -104,7 +102,6 @@ function Trade() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <h1 className="text-xl sm:text-2xl font-bold">📈 Trade</h1>
         <div className="flex gap-2 w-full sm:w-auto overflow-x-auto">
@@ -125,7 +122,6 @@ function Trade() {
         </div>
       </div>
 
-      {/* Price Bar */}
       <div className="glass-panel p-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-6">
           <div>
@@ -157,9 +153,7 @@ function Trade() {
         </div>
       </div>
 
-      {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        {/* Chart - 2 kolom */}
         <div className="lg:col-span-2 glass-panel p-4 min-h-[400px] flex items-center justify-center">
           <div className="text-center">
             <p className="text-5xl mb-3">📊</p>
@@ -168,7 +162,6 @@ function Trade() {
           </div>
         </div>
 
-        {/* Order Form - 1 kolom */}
         <div className="lg:col-span-1 glass-panel p-4 space-y-4">
           <div className="text-center border-b border-white/5 pb-3">
             <p className="text-2xl font-mono font-bold">${selected?.price}</p>
@@ -273,7 +266,6 @@ function Trade() {
           </button>
         </div>
 
-        {/* Order Book - 1 kolom */}
         <div className="lg:col-span-1 glass-panel p-4">
           <div className="flex justify-between items-center mb-3">
             <span className="text-sm font-semibold">Order Book</span>
@@ -286,7 +278,6 @@ function Trade() {
             <span className="text-right">Total</span>
           </div>
 
-          {/* Asks */}
           <div className="space-y-0.5">
             {asks.map((item, i) => (
               <div key={i} className="grid grid-cols-3 text-xs text-danger/80 hover:bg-surface-elevated/50 rounded px-2 py-0.5">
@@ -297,12 +288,10 @@ function Trade() {
             ))}
           </div>
 
-          {/* Current Price */}
           <div className="py-2 text-center border-y border-white/5 my-1">
             <span className="text-lg font-mono font-bold text-success">$67,234.50</span>
           </div>
 
-          {/* Bids */}
           <div className="space-y-0.5">
             {bids.map((item, i) => (
               <div key={i} className="grid grid-cols-3 text-xs text-success/80 hover:bg-surface-elevated/50 rounded px-2 py-0.5">
@@ -319,7 +308,6 @@ function Trade() {
         </div>
       </div>
 
-      {/* Bottom: Positions */}
       <div className="glass-panel p-4">
         <div className="flex gap-4 border-b border-white/5 pb-3 mb-3">
           {['Open Positions', 'Order History', 'Trade History'].map((tab) => (
@@ -417,16 +405,13 @@ function App() {
 
   return (
     <div className="min-h-screen bg-dark">
-      {/* === NAVBAR === */}
       <nav className="bg-surface border-b border-white/10 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo */}
           <div onClick={() => navigate('home')} className="flex items-center gap-2 cursor-pointer">
             <span className="text-xl font-bold text-primary">Nomic</span>
             <span className="text-[10px] text-text-secondary bg-primary/10 px-2 py-0.5 rounded">Beta</span>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex gap-2">
             {menuItems.map((item) => (
               <button
@@ -443,13 +428,11 @@ function App() {
             ))}
           </div>
 
-          {/* Right Side */}
           <div className="flex items-center gap-3">
             <button className="hidden md:inline-block btn-primary text-sm py-1.5 px-4">
               Connect Wallet
             </button>
             
-            {/* Mobile Hamburger */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden text-text-primary p-1 hover:bg-surface-elevated rounded-lg transition"
@@ -459,7 +442,6 @@ function App() {
           </div>
         </div>
 
-        {/* === MOBILE MENU === */}
         {isMenuOpen && (
           <div className="md:hidden mt-3 pt-3 border-t border-white/10">
             <div className="space-y-1">
@@ -489,7 +471,6 @@ function App() {
         )}
       </nav>
 
-      {/* === CONTENT === */}
       <main className="max-w-7xl mx-auto p-4 sm:p-6">
         {page === 'home' && <Home />}
         {page === 'trade' && <Trade />}
@@ -500,4 +481,5 @@ function App() {
   )
 }
 
+// === EXPORT ===
 export default App
