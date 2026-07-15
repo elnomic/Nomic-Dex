@@ -3,9 +3,8 @@ import { createClient } from '@supabase/supabase-js'
 import { Menu, X, LayoutDashboard, TrendingUp, Wallet, Star } from 'lucide-react'
 
 // === SUPABASE ===
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://xxyskjoxfqsnhfyddmhg.supabase.co'
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4eXNram94ZnFzbmhmeWRkbWhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMDUxMjUsImV4cCI6MjA5OTY4MTEyNX0.fp_-LW5Ho1rA2ftzLC8j5ZEBZs8d5eZb78MgJnZP500
-'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://your-project.supabase.co'
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // === PAGES ===
@@ -173,7 +172,7 @@ function App() {
             <span className="text-[10px] text-text-secondary bg-primary/10 px-2 py-0.5 rounded">Beta</span>
           </div>
 
-          {/* Desktop Menu - hidden di mobile */}
+          {/* Desktop Menu */}
           <div className="hidden md:flex gap-2">
             {menuItems.map((item) => (
               <button
@@ -196,7 +195,7 @@ function App() {
               Connect Wallet
             </button>
             
-            {/* Mobile Hamburger - hanya di mobile */}
+            {/* Mobile Hamburger */}
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden text-text-primary p-1 hover:bg-surface-elevated rounded-lg transition"
@@ -206,10 +205,9 @@ function App() {
           </div>
         </div>
 
-        {/* === MOBILE MENU (Slide Down) === */}
+        {/* === MOBILE MENU === */}
         {isMenuOpen && (
           <div className="md:hidden mt-3 pt-3 border-t border-white/10">
-            {/* Menu Items */}
             <div className="space-y-1">
               {menuItems.map((item) => {
                 const Icon = item.icon
@@ -230,7 +228,6 @@ function App() {
               })}
             </div>
             
-            {/* Connect Wallet Button di Mobile */}
             <button className="w-full mt-3 btn-primary text-sm py-3">
               🔗 Connect Wallet
             </button>
